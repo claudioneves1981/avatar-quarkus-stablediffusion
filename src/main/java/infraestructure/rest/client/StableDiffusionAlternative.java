@@ -7,6 +7,6 @@ import java.io.IOException;
 
 public interface StableDiffusionAlternative {
 
-    Response img2img(ProfilePhoto profilePhoto) throws IOException;
+    Response text2img(ProfilePhoto profilePhoto) throws IOException;
 
 }

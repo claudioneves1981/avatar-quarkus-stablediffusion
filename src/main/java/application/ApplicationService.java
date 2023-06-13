@@ -1,8 +1,8 @@
 package application;
 
 
-import application.dto.Customer;
-import application.dto.ProfilePhoto;
+import application.dto.CustomerDTO;
+import application.dto.ProfilePhotoDTO;
 import domain.services.CustomerReadService;
 import domain.services.ProfilePhotoCreateService;
 
@@ -24,16 +24,16 @@ public class ApplicationService {
 
     }
 
-    public List<Customer> searchCustomers(){
-        return customerReadService.find().stream().map(Customer::fromDomain).collect(Collectors.toList());
+    public List<CustomerDTO> searchCustomers(){
+        return customerReadService.find().stream().map(CustomerDTO::fromDomain).collect(Collectors.toList());
     }
 
-    public Customer getCustomer(String customerId){
-        return Customer.fromDomain(customerReadService.findById(customerId));
+    public CustomerDTO getCustomer(String customerId){
+        return CustomerDTO.fromDomain(customerReadService.findById(customerId));
 
     }
 
-    public void persistProfilePhoto(String customerId, ProfilePhoto dto){
+    public void persistProfilePhoto(String customerId, ProfilePhotoDTO dto){
         profilePhotoCreateService.save(customerId, dto.toDomain());
     }
 }

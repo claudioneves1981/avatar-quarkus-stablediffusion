@@ -1,16 +1,12 @@
 package infraestructure.resources;
 
 import application.ApplicationService;
-import application.dto.Customer;
-import application.dto.ProfilePhoto;
+import application.dto.CustomerDTO;
+import application.dto.ProfilePhotoDTO;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
 import org.jboss.resteasy.reactive.ResponseStatus;
-import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.RestResponse;
-import org.jboss.resteasy.reactive.multipart.FileUpload;
 
-import java.io.File;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -24,13 +20,13 @@ public class CustomerResource {
     }
 
     @GET
-    public List<Customer> searchCustomers(){
+    public List<CustomerDTO> searchCustomers(){
         return service.searchCustomers();
     }
 
     @GET
     @Path("/{id}")
-    public Customer getCustomer(@PathParam("id") String id){
+    public CustomerDTO getCustomer(@PathParam("id") String id){
         try{
             return service.getCustomer(id);
         } catch(NoSuchElementException exception){
@@ -42,9 +38,8 @@ public class CustomerResource {
 
     @POST
     @Path("/{id}")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @ResponseStatus(RestResponse.StatusCode.ACCEPTED)
-    public void persistProfilePhoto(@PathParam("id") String id, @RestForm("photo") File fileUpload){
-        service.persistProfilePhoto(id, ProfilePhoto.create(fileUpload));
+    public void persistProfilePhoto(@PathParam("id") String id, ProfilePhotoDTO profilePhoto){
+        service.persistProfilePhoto(id, profilePhoto);
     }
 }

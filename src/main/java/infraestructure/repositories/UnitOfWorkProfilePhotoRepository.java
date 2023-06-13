@@ -48,10 +48,17 @@ public class UnitOfWorkProfilePhotoRepository implements ProfilePhotoRepository 
             try {
                 persistenceRespository.save(customerId, profilePhoto);
 
-                var generated = stableDiffusionService.img2img(profilePhoto);
-                //var originalS3 = storageRespository.store(customerId, profilePhoto).await().indefinitely();
-                //var generatedS3 = storageRespository.store(customerId, profilePhoto, generated).await().indefinitely();
-                var updated = new ProfilePhoto(profilePhoto.id(), profilePhoto.originalPhoto(), generated.toString());
+                var generated = stableDiffusionService.text2img(profilePhoto);
+                var updated = new ProfilePhoto(profilePhoto.id(),
+                        profilePhoto.originalPhoto(),
+                        profilePhoto.prompt(),
+                        profilePhoto.negativePrompt(),
+                        profilePhoto.width(),
+                        profilePhoto.height(),
+                        profilePhoto.samples(),
+                        profilePhoto.numInferenceSteps(),
+                        profilePhoto.guidanceScale(),
+                        generated.toString());
                 persistenceRespository.save(customerId, updated);
             }catch (Exception exception){
                 Logger.getLogger(getClass()).error(exception);
