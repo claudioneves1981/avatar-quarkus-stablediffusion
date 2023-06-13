@@ -1,6 +1,6 @@
 ###Exemplo Avatar com Quarkus usando StableDiffusionAPI
 
-Este programa é um exemplo de api geradora de imagens que utiliza a api do site [Stable Difusion API ](stablediffusionapi.com)
+Este programa é um exemplo de api geradora de imagens que utiliza a api do site [Stable Difusion API ](https://stablediffusionapi.com)
 
 Primeiramente Clone o repositorio
 
